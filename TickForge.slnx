@@ -1,0 +1,12 @@
+<Solution>
+  <Folder Name="/bench/">
+    <Project Path="bench/TickForge.Bench/TickForge.Bench.csproj" />
+  </Folder>
+  <Folder Name="/src/">
+    <Project Path="src/TickForge.Cli/TickForge.Cli.csproj" />
+    <Project Path="src/TickForge.Core/TickForge.Core.csproj" />
+  </Folder>
+  <Folder Name="/tests/">
+    <Project Path="tests/TickForge.Tests/TickForge.Tests.csproj" />
+  </Folder>
+</Solution>
