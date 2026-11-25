@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 
 namespace TickForge.Core
 {
@@ -16,7 +14,7 @@ namespace TickForge.Core
             
             if (!decimal.IsInteger(scaled) || scaled <= 0)
             {
-                throw new ArgumentException();
+                throw new ArgumentException($"價格必須為正數且最多四位小數：{value}", nameof(value));
             }
             return new Price((long)scaled); 
         }

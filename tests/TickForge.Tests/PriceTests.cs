@@ -1,7 +1,5 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Globalization;
-using System.Text;
 using TickForge.Core;
 
 namespace TickForge.Tests
@@ -51,6 +49,10 @@ namespace TickForge.Tests
         [InlineData("501", true)]
         [InlineData("1033", false)]
         [InlineData("1035", true)]
+        [InlineData("50", true)]      // 剛好進入 0.1 那檔
+        [InlineData("49.95", true)]   // 前一格還是 0.05
+        [InlineData("999.5", false)]  // 500–1000 是 1 元一跳，所以不合法
+        [InlineData("1000", true)]
         public void IsValid_follows_tick_table(string text, bool expected) =>
             Assert.Equal(expected,
                 TickSize.IsValid(Price.FromDecimal(decimal.Parse(text, CultureInfo.InvariantCulture))));
