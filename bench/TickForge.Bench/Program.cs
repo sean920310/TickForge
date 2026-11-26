@@ -1,5 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Running;
+using System.Globalization;
 using TickForge.Core;
 
 BenchmarkRunner.Run<EqualityBench>();
@@ -19,6 +20,13 @@ public struct PlainWithRef
     public PlainWithRef(long raw, string tag) { Raw = raw; Tag = tag; }
 }
 
+public record struct RecordWithRef
+{
+    public long Raw;
+    public string Tag;
+    public RecordWithRef(long raw, string tag) { Raw = raw; Tag = tag; }
+}
+
 [MemoryDiagnoser]
 public class EqualityBench
 {
@@ -28,6 +36,8 @@ public class EqualityBench
         Enumerable.Range(1, 1000).Select(i => new PlainPrice(i)).ToList();
     private readonly List<PlainWithRef> _withRef =
         Enumerable.Range(1, 1000).Select(i => new PlainWithRef(i, Tag)).ToList();
+    private readonly List<RecordWithRef> _recoredWithRef =
+        Enumerable.Range(1, 1000).Select(i => new RecordWithRef(i, Tag)).ToList();
     private readonly List<Price> _record =
         Enumerable.Range(1, 1000).Select(i => new Price(i)).ToList();
 
@@ -39,4 +49,7 @@ public class EqualityBench
 
     [Benchmark]
     public bool RecordStruct() => _record.Contains(new Price(1000));
+
+    [Benchmark]
+    public bool RecordStructWithRef() => _recoredWithRef.Contains(new RecordWithRef(1000, Tag));
 }
